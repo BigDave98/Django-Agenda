@@ -17,8 +17,16 @@
     </nav>
 
     <div class="search">
-        <form action="" method="get">
-            <input placeholder='Search' type="text" class="search-input" id='search' name='q'>
+        <form 
+            action="{% url "contact:search" %}" 
+            method="GET"
+        >
+            <input placeholder='Search' 
+                type="text" class="search-input" 
+                id='search' 
+                name='q' 
+                value = "{{ search_value }}"
+            >
         </form>
     </div>
 </header>
