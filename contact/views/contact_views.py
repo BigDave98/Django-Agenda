@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render, get_object_or_404
 from contact.models import Contact
 from django.http import Http404
 
@@ -8,7 +8,8 @@ def index(request):
         .order_by('-id')
     
     context = {
-        'contacts': contacts
+        'contacts': contacts,
+        'site_title': 'Contacts - '
     }
         
     return render(
@@ -19,15 +20,18 @@ def index(request):
     
 def contact(request, contact_id):
     #single_contact = Contact.objects.filter(pk=contact_id).first()
-    single_contact = get_list_or_404(
+    single_contact = get_object_or_404(
         Contact.objects, pk=contact_id, show=True
     )
     
     if single_contact is None:
         raise Http404
     
+    site_title = f'{single_contact.first_name} {single_contact.last_name} - '
+    
     context = {
         'contact': single_contact,
+        'site_title': site_title
 
     }
         
